@@ -1,0 +1,159 @@
+{
+	"info": {
+		"_postman_id": "adb3a4e3-d7d1-4dc0-bc16-0bddaf3f8cba",
+		"name": "MarketAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetProductCommentsByProductId",
+			"protocolProfileBehavior": {
+				"disableUrlEncoding": false,
+				"followRedirects": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/Comment/GetProductComments/5be33005-b271-4492-a7d8-93c866e20e7b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"Comment",
+						"GetProductComments",
+						"5be33005-b271-4492-a7d8-93c866e20e7b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetProductComments By Date Range",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\":\"a405b856-4b81-4d1b-b8bd-720a00585346\",\r\n    \"startDate\":\"2022-08-01T00:00:00\",\r\n    \"endDate\":\"2022-10-01T00:00:00\"\r\n\r\n}\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/Comment/GetProductCommentsByDateRange",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"Comment",
+						"GetProductCommentsByDateRange"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCustomerComments/{customerId}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/Comment/GetCustomerComments/4b225dea-6130-48fb-8503-d23589ba8dce",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"Comment",
+						"GetCustomerComments",
+						"4b225dea-6130-48fb-8503-d23589ba8dce"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCustomerCommentsByDateRange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerId\": \"04404154-79c4-4e86-a60e-32e0975dd046\",\r\n    \"startDate\": \"2022-05-01T00:00:00\",\r\n    \"endDate\": \"2022-09-07T11:41:08\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/Comment/GetCustomerCommentsByDateRange",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"Comment",
+						"GetCustomerCommentsByDateRange"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetExpiredProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/Product/GetExpiredProducts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"Product",
+						"GetExpiredProducts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetNotExpiredProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/Product/GetNotExpiredProducts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"Product",
+						"GetNotExpiredProducts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
