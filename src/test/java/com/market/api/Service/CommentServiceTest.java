@@ -16,10 +16,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a68c143c0ae331e686a2acb1fabfc5ee1cf1ae69
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CommentServiceTest extends TestSeeding{
 
