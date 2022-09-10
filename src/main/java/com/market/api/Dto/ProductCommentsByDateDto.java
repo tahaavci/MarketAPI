@@ -1,5 +1,7 @@
 package com.market.api.Dto;
 
+import java.util.Objects;
+
 public class ProductCommentsByDateDto {
 
 	private String productId;
@@ -14,36 +16,28 @@ public class ProductCommentsByDateDto {
 		this.endDate = endDate;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ProductCommentsByDateDto that = (ProductCommentsByDateDto) o;
+		return productId.equals(that.productId) && startDate.equals(that.startDate) && endDate.equals(that.endDate);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(productId, startDate, endDate);
+	}
 
 	public String getProductId() {
 		return productId;
 	}
 
-
-	public void setProductId(String productId) {
-		this.productId = productId;
-	}
-
-
 	public String getStartDate() {
 		return startDate;
 	}
 
-
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
-
 	public String getEndDate() {
 		return endDate;
 	}
-
-
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-	
-	
-	
 }

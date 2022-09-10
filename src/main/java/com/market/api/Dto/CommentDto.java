@@ -1,6 +1,8 @@
 package com.market.api.Dto;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
+
 public class CommentDto {
 
 	
@@ -17,39 +19,32 @@ public class CommentDto {
 		this.userId = userId;
 	}
 
-	public String getCommentId() {
-		return commentId;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		CommentDto that = (CommentDto) o;
+		return commentId.equals(that.commentId) && commentContent.equals(that.commentContent) && commentDate.equals(that.commentDate) && userId.equals(that.userId);
 	}
 
-	public void setCommentId(String commentId) {
-		this.commentId = commentId;
+	@Override
+	public int hashCode() {
+		return Objects.hash(commentId, commentContent, commentDate, userId);
+	}
+
+	public String getCommentId() {
+		return commentId;
 	}
 
 	public String getCommentContent() {
 		return commentContent;
 	}
 
-	public void setCommentContent(String commentContent) {
-		this.commentContent = commentContent;
-	}
-
 	public LocalDateTime getCommentDate() {
 		return commentDate;
-	}
-
-	public void setCommentDate(LocalDateTime commentDate) {
-		this.commentDate = commentDate;
 	}
 
 	public String getUserId() {
 		return userId;
 	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	
-	
-	
-	
 }

@@ -1,19 +1,23 @@
 package com.market.api.Service;
 
+import com.market.api.Dto.CommentDto;
 import com.market.api.Exception.LocalDateTimeConvertionException;
+import com.market.api.Exception.ProductNotFoundException;
 import com.market.api.Repository.CommentRepository;
 import com.market.api.Repository.CustomerRepository;
 import com.market.api.Repository.ProductRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class CommentServiceTest{
+public class CommentServiceTest extends TestSeeding{
 
     private CommentService commentService;
     private ProductService productService;
@@ -37,16 +41,40 @@ public class CommentServiceTest{
 
 
     @Test
-    public void whenLocalDateTimeisNotInProperFormat_thenthrowLocalDateTimeConvertionException(){
+    public void testValidateDate_whenLocalDateTimeisNotInProperFormat_thenThrowLocalDateTimeConvertionException(){
 
-        Assertions.assertDoesNotThrow(()->commentService.ValidateDate("2022-09-09T00:00:00"));
+        assertDoesNotThrow(()->commentService.ValidateDate("2022-09-09T00:00:00"));
 
-        Assertions.assertThrows(LocalDateTimeConvertionException.class,()->
+        assertThrows(LocalDateTimeConvertionException.class,()->
                 commentService.ValidateDate("2022-09-0900:00:00")
         );
     }
 
+    @Test
+    public void testGetCommentsByProductId_whenExistIdsend_thenReturnListCommentDto (){
 
+        List<CommentDto> dto = generateCommentDtoList();
+
+
+        when(commentRepository.findAllByProductProductId("product-id")).thenReturn(generateComment());
+        List<CommentDto> response =  commentService.GetCommentsByProductId("product-id");
+
+
+        assertEquals(dto,response);
+
+        verify(commentRepository).findAllByProductProductId("product-id");
+
+    }
+
+
+    @Test
+    public void testGetCommentsByProductId_whenNotExistIdsend_thenThrowError(){
+
+        when(commentRepository.findAllByProductProductId("product-id")).thenReturn(generateComment());
+
+
+        assertThrows(ProductNotFoundException.class, () -> commentService.GetCommentsByProductId("NotExistId"));
+    }
 
 
 }
