@@ -59,8 +59,7 @@ public class CommentController {
 	}
 
 	@PostMapping("/GetCustomerCommentsByDateRange")
-	public ResponseEntity<List<CommentDto>> GetCustomerCommentByDateRange(
-			@Valid @RequestBody CustomerCommentByDateDto dto) {
+	public ResponseEntity<List<CommentDto>> GetCustomerCommentByDateRange(@Valid @RequestBody CustomerCommentByDateDto dto) {
 
 		if (dto == null)
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

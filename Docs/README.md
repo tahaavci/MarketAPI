@@ -13,9 +13,6 @@
 * Get Not Expired Products
 
 
-[Postman Collection for Test => Import to Postman](MarketAPI.postman_collection.json "download")
-
-
 
 ### Models
 
@@ -34,5 +31,27 @@
 * Spring Boot 2.7.3
 * Spring Data JPA
 * H2 Database
+
+### Test
+
+---
+
+[Postman Collection for Test => Import to Postman](MarketAPI.postman_collection.json "download")
+
+<br>
+<br>
+
+#### Build & Run ( Docker )
+
+---
+
+
+```shell
+docker build . -t marketapi:1.0
+docker run --name MarketAPI -d -p 8080:8080 marketapi:1.0
+```
+
+
+
 
 
