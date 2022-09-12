@@ -12,6 +12,7 @@
 * Get Expired Products
 * Get Not Expired Products
 
+<br>
 
 
 ### Models
@@ -21,6 +22,7 @@
 
 <img src="../Docs/Schema.jpg" alt="drawing" width="500"/>
 
+<br>
 <br>
 
 ### Tech Stack
@@ -32,13 +34,6 @@
 * Spring Data JPA
 * H2 Database
 
-### Test
-
----
-
-[Postman Collection for Test => Import to Postman](MarketAPI.postman_collection.json "download")
-
-<br>
 <br>
 
 #### Build & Run ( Docker )
@@ -61,3 +56,13 @@ docker run --name MarketAPI -d -p 8080:8080 marketapi:1.0
 http://localhost:8080/swagger-ui/index.html
 ```
 
+<br>
+
+#### Postman
+
+---
+
+[Postman Collection for Test => Import to Postman](MarketAPI.postman_collection.json "download")
+
+<br>
+<br>
