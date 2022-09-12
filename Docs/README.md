@@ -51,7 +51,13 @@ docker build . -t marketapi:1.0
 docker run --name MarketAPI -d -p 8080:8080 marketapi:1.0
 ```
 
+<br>
 
+#### Swagger UI
 
+----
 
+```
+http://localhost:8080/swagger-ui/index.html
+```
 

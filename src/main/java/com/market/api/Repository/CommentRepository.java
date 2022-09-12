@@ -9,15 +9,15 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, String> {
 
-    public List<Comment> findAllByProductProductId(String productId);
+    List<Comment> findAllByProductProductId(String productId);
 
-    public List<Comment> findAllByCommentDateBetweenAndProductProductId(LocalDateTime start, LocalDateTime end, String productId);
-
-
-    public List<Comment> findAllByCustomerCustomerId(String customerId);
+    List<Comment> findAllByCommentDateBetweenAndProductProductId(LocalDateTime start, LocalDateTime end, String productId);
 
 
-    public List<Comment> findAllByCommentDateBetweenAndCustomerCustomerId(LocalDateTime start, LocalDateTime end, String customerId);
+    List<Comment> findAllByCustomerCustomerId(String customerId);
+
+
+    List<Comment> findAllByCommentDateBetweenAndCustomerCustomerId(LocalDateTime start, LocalDateTime end, String customerId);
 
 
 

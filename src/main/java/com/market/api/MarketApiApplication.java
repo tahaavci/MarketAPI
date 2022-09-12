@@ -6,9 +6,14 @@ import com.market.api.Model.Product;
 import com.market.api.Repository.CommentRepository;
 import com.market.api.Repository.CustomerRepository;
 import com.market.api.Repository.ProductRepository;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,9 +23,9 @@ import java.util.List;
 @SpringBootApplication
 public class MarketApiApplication implements CommandLineRunner {
 
-	private ProductRepository productRepository;
-	private CustomerRepository customerRepository;
-	private CommentRepository commentRepository;
+	private final ProductRepository productRepository;
+	private final CustomerRepository customerRepository;
+	private final CommentRepository commentRepository;
 
 	public MarketApiApplication(ProductRepository productRepository, CustomerRepository customerRepository, CommentRepository commentRepository) {
 		this.productRepository = productRepository;
@@ -33,9 +38,22 @@ public class MarketApiApplication implements CommandLineRunner {
 
 	}
 
+	@Bean
+	public OpenAPI customOpenAPI(@Value("${application-description}") String desc,@Value("${application-version}") String version){
+
+			return new OpenAPI().info(new Info()
+												.title("Market API")
+												.version(version)
+												.description(desc)
+												.license(new License().name("MIT License")));
+
+
+
+	}
+
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 
 
 		ArrayList<Product> products = new ArrayList<>();
