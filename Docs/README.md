@@ -32,7 +32,10 @@
 * Java 17
 * Spring Boot 2.7.3
 * Spring Data JPA
+* JUnit 5
 * H2 Database
+* Docker
+* OpenAPI Documentation
 
 <br>
 
