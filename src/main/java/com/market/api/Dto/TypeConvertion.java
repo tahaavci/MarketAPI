@@ -9,13 +9,13 @@ import java.util.List;
 public class TypeConvertion {
 
 
-    public static List<CommentDto> ConvertToCommentDto(List<Comment> comments){
+    public static List<CommentResponseDto> ConvertToCommentDto(List<Comment> comments){
 
-        List<CommentDto> response = new ArrayList<>();
+        List<CommentResponseDto> response = new ArrayList<>();
 
 
         for (Comment item : comments){
-            CommentDto dto = new CommentDto(item.getCommentId(),item.getCommentContent()
+            CommentResponseDto dto = new CommentResponseDto(item.getCommentId(),item.getCommentContent()
                                             ,item.getCommentDate(),item.getCustomer().getCustomerId());
             response.add(dto);
         }
@@ -23,13 +23,13 @@ public class TypeConvertion {
     }
 
 
-    public static List<ProductDto> ConvertToProductDto(List<Product> products){
+    public static List<ProductResponseDto> ConvertToProductDto(List<Product> products){
 
-        List<ProductDto> response = new ArrayList<>();
+        List<ProductResponseDto> response = new ArrayList<>();
 
 
         for (Product item : products){
-            ProductDto dto = new ProductDto(item.getProductId(),item.getProductName(),
+            ProductResponseDto dto = new ProductResponseDto(item.getProductId(),item.getProductName(),
                                             item.getProductPrice(),item.getProductExpdate());
             response.add(dto);
         }

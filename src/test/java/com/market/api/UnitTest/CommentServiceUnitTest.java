@@ -1,15 +1,19 @@
-package com.market.api.Service;
+package com.market.api.UnitTest;
 
-import com.market.api.Dto.CommentDto;
-import com.market.api.Exception.LocalDateTimeConvertionException;
+import com.market.api.Dto.CommentResponseDto;
 import com.market.api.Exception.ProductNotFoundException;
 import com.market.api.Repository.CommentRepository;
 import com.market.api.Repository.CustomerRepository;
 import com.market.api.Repository.ProductRepository;
+import com.market.api.Service.CommentService;
+import com.market.api.Service.CustomerService;
+import com.market.api.Service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mockito;
+
+import java.time.Clock;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -17,8 +21,7 @@ import static org.mockito.Mockito.when;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class CommentServiceTest extends TestSeeding{
-
+public class CommentServiceUnitTest extends UnitTestSeeding {
     private CommentService commentService;
     private ProductService productService;
     private CustomerService customerService;
@@ -26,6 +29,7 @@ public class CommentServiceTest extends TestSeeding{
     private CommentRepository commentRepository;
     private ProductRepository productRepository;
     private CustomerRepository customerRepository;
+
 
     @BeforeEach
     public void setUp(){
@@ -35,29 +39,21 @@ public class CommentServiceTest extends TestSeeding{
         customerRepository= Mockito.mock((CustomerRepository.class));
 
         customerService = new CustomerService(customerRepository);
-        productService = new ProductService(productRepository);
+        productService = new ProductService(productRepository, Clock.systemDefaultZone());
         commentService = new CommentService(commentRepository,productService,customerService);
     }
 
 
-    @Test
-    public void testValidateDate_whenLocalDateTimeisNotInProperFormat_thenThrowLocalDateTimeConvertionException(){
 
-        assertDoesNotThrow(()->commentService.ValidateDate("2022-09-09T00:00:00"));
-
-        assertThrows(LocalDateTimeConvertionException.class,()->
-                commentService.ValidateDate("2022-09-0900:00:00")
-        );
-    }
 
     @Test
     public void testGetCommentsByProductId_whenExistIdsend_thenReturnListCommentDto (){
 
-        List<CommentDto> dto = generateCommentDtoList();
+        List<CommentResponseDto> dto = generateCommentDtoList();
 
 
-        when(commentRepository.findAllByProductProductId("product-id")).thenReturn(generateComment());
-        List<CommentDto> response =  commentService.GetCommentsByProductId("product-id");
+        when(commentRepository.findAllByProductProductId("product-id")).thenReturn(generateCommentList());
+        List<CommentResponseDto> response =  commentService.GetCommentsByProductId("product-id");
 
 
         assertEquals(dto,response);
@@ -70,10 +66,12 @@ public class CommentServiceTest extends TestSeeding{
     @Test
     public void testGetCommentsByProductId_whenNotExistIdsend_thenThrowError(){
 
-        when(commentRepository.findAllByProductProductId("product-id")).thenReturn(generateComment());
+        when(commentRepository.findAllByProductProductId("product-id")).thenReturn(generateCommentList());
 
 
         assertThrows(ProductNotFoundException.class, () -> commentService.GetCommentsByProductId("NotExistId"));
+        verify(commentRepository).findAllByProductProductId("NotExistId");
+
     }
 
 

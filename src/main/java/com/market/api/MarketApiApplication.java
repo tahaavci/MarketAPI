@@ -15,6 +15,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,11 @@ public class MarketApiApplication implements CommandLineRunner {
 
 
 
+	}
+
+	@Bean
+	public Clock clock(){
+		return Clock.systemUTC();
 	}
 
 

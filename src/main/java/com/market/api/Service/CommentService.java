@@ -20,7 +20,7 @@ public class CommentService {
 	private final ProductService productService;
 	private final CustomerService customerService;
 
-	private static final Logger logger = (Logger) LoggerFactory.getLogger(CommentService.class);
+	private static final Logger logger =  LoggerFactory.getLogger(CommentService.class);
 
 	public CommentService(CommentRepository commentRepository, ProductService productService,
 			CustomerService customerService) {
@@ -30,7 +30,7 @@ public class CommentService {
 		this.customerService = customerService;
 	}
 
-	public List<CommentDto> GetCommentsByProductId(String product_id) {
+	public List<CommentResponseDto> GetCommentsByProductId(String product_id) {
 
 		List<Comment> comments = commentRepository.findAllByProductProductId(product_id);
 
@@ -44,24 +44,24 @@ public class CommentService {
 
 
 	
-	public List<CommentDto> GetProductCommentsByDate(ProductCommentsByDateDto dto) {
+	public List<CommentResponseDto> GetProductCommentsByDate(ProductCommentsByDateRequestDto dto) {
 
-		LocalDateTime startDate = ValidateDate(dto.getStartDate());
-		LocalDateTime endDate = ValidateDate(dto.getEndDate());
+		LocalDateTime startDate = ValidateDate(dto.startDate());
+		LocalDateTime endDate = ValidateDate(dto.endDate());
 
 
-		List<Comment> comments = commentRepository.findAllByCommentDateBetweenAndProductProductId(startDate,endDate,dto.getProductId());
+		List<Comment> comments = commentRepository.findAllByCommentDateBetweenAndProductProductId(startDate,endDate,dto.productId());
 
 		// if product not found, raise an error
 		if(comments.size()==0)
-			throw new ProductNotFoundException(dto.getProductId());
+			throw new ProductNotFoundException(dto.productId());
 
 		return TypeConvertion.ConvertToCommentDto(comments);
 
 
 	}
 
-	public List<CommentDto> GetCommentsByCustomer(String customerId) {
+	public List<CommentResponseDto> GetCommentsByCustomer(String customerId) {
 
 
 		List<Comment> comments = commentRepository.findAllByCustomerCustomerId(customerId);
@@ -74,25 +74,25 @@ public class CommentService {
 		return TypeConvertion.ConvertToCommentDto(comments);
 	}
 
-	public List<CommentDto> GetCustomerCommentsByDateRange(CustomerCommentByDateDto dto) {
+	public List<CommentResponseDto> GetCustomerCommentsByDateRange(CustomerCommentByDateRequestDto dto) {
 
 		// date time format validation, if it is not in proper format, ValidateDate method raise an error.
-		LocalDateTime startDate = ValidateDate(dto.getStartDate());
-		LocalDateTime endDate = ValidateDate(dto.getEndDate());
+		LocalDateTime startDate = ValidateDate(dto.startDate());
+		LocalDateTime endDate = ValidateDate(dto.endDate());
 
-		List<Comment> comments = commentRepository.findAllByCommentDateBetweenAndCustomerCustomerId(startDate,endDate,dto.getCustomerId());
+		List<Comment> comments = commentRepository.findAllByCommentDateBetweenAndCustomerCustomerId(startDate,endDate,dto.customerId());
 
 
 		// if customer not found, customer service raise an error
 		if(comments.size()==0)
-			throw new CustomerNotFoundException(dto.getCustomerId());
+			throw new CustomerNotFoundException(dto.customerId());
 
 
 		return TypeConvertion.ConvertToCommentDto(comments);
 	}
 
 
-	public LocalDateTime ValidateDate(String date) {
+	private LocalDateTime ValidateDate(String date) {
 
 		try {
 			return LocalDateTime.parse(date);

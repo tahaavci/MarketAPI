@@ -1,6 +1,6 @@
-package com.market.api.Service;
+package com.market.api.UnitTest;
 
-import com.market.api.Dto.CommentDto;
+import com.market.api.Dto.CommentResponseDto;
 import com.market.api.Dto.TypeConvertion;
 import com.market.api.Model.Comment;
 import com.market.api.Model.Customer;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestSeeding {
+public class UnitTestSeeding {
 
 
     private final LocalDateTime time = LocalDateTime.parse("2022-09-01T00:00:00");
@@ -27,7 +27,8 @@ public class TestSeeding {
     }
 
 
-    public List<Comment> generateComment(){
+
+    public List<Comment> generateCommentList(){
 
         List<Comment> comments = new ArrayList<>();
 
@@ -40,9 +41,19 @@ public class TestSeeding {
         return comments;
     }
 
-    public List<CommentDto> generateCommentDtoList(){
+    public List<Product> generateProductList(){
 
-        return TypeConvertion.ConvertToCommentDto(generateComment());
+        List<Product> products = new ArrayList<>();
+
+        for (int i=0; i<10;i++)
+            products.add(new Product("Product"+i,50.5+(i*5),LocalDateTime.parse("2022-09-09T00:00:00")));
+
+        return products;
+    }
+
+    public List<CommentResponseDto> generateCommentDtoList(){
+
+        return TypeConvertion.ConvertToCommentDto(generateCommentList());
     }
 
 

@@ -1,5 +1,6 @@
 package com.market.api.Service;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -8,8 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.market.api.Exception.ProductNotFoundException;
-import com.market.api.Dto.ProductDto;
+import com.market.api.Dto.ProductResponseDto;
 import com.market.api.Model.Product;
 import com.market.api.Repository.ProductRepository;
 
@@ -17,17 +17,20 @@ import com.market.api.Repository.ProductRepository;
 public class ProductService {
 
 	private final ProductRepository productRepository;
+	private final Clock clock;
 	private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
-	public ProductService(ProductRepository productRepository) {
 
+
+	public ProductService(ProductRepository productRepository, Clock clock) {
 		this.productRepository = productRepository;
-
+		this.clock = clock;
 	}
 
-	public List<ProductDto> GetExpiredProducts() {
 
-		List<Product> products = productRepository.findAllByproductExpdateBefore(LocalDateTime.now());
+	public List<ProductResponseDto> GetExpiredProducts() {
+
+		List<Product> products = productRepository.findAllByproductExpdateBefore(LocalDateTime.now(clock));
 
 
 		return TypeConvertion.ConvertToProductDto(products);
@@ -35,7 +38,7 @@ public class ProductService {
 
 
 
-	public List<ProductDto> GetNotExpiredProducts() {
+	public List<ProductResponseDto> GetNotExpiredProducts() {
 
 		List<Product> products = productRepository.findNotExpired();
 
@@ -44,16 +47,6 @@ public class ProductService {
 
 
 
-	protected Product findProductById(String id) {
-
-		return productRepository.findById(id).orElseThrow(
-
-				() -> {
-						logger.error("Product Not Found!");
-						throw new ProductNotFoundException(id);
-				});
-
-	}
 
 }
 
